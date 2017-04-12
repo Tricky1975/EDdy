@@ -4,3 +4,5 @@
 src/EDdy
 *.debug
 *.debug.exe
+*.MKL.ini
+MKL_Backup
