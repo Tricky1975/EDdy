@@ -2,3 +2,5 @@
 .DS_Store
 ._*
 src/EDdy
+*.debug
+*.debug.exe
