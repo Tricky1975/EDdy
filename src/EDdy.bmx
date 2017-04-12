@@ -46,6 +46,19 @@ Function EDdyAdd(c$,f(p$),H$)
 	MapInsert EDdyM,Upper(c),E
 End Function
 
+Function Help(P$)
+	P=Trim(P)
+	If Not P
+		For Local k$=EachIn MapKeys(EDdyM) Help k Next
+	Else
+		If MapContains(EDdyM,Upper(p))
+			Print p+"~n~t"+TEDdyCommand(MapValueForKey(EDdyM,Upper(p))).Help$
+		Else
+			Print "ERROR: That command doesn't exist so no help is available about it either."
+		EndIf	
+	EndIf
+End Function
+
 Function Quit(p$)
 	Save p
 	Print "Ending"
@@ -132,6 +145,7 @@ eddyadd "BYE",quit,"Saves and quits EDdy"
 eddyadd "CRASH",Crash,"Quits EDdy immediately without saving"
 eddyadd "A",Add,"Adds a line of text to the end of the text"
 eddyadd "L",List,"Lists content"
+eddyadd "HELP",HELP,"List of commands And their purposes"
 
 Print "EDdy - Coded by Tricky"
 Print "Version "+MKL_NewestVersion()
