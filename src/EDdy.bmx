@@ -140,12 +140,33 @@ Function List(p$)
 	Next
 End Function
 
+Function Del(P$)
+	Local l[] = linenumbers(p)
+	If Len(l)>5 Or Len(l)>=CountList(data)
+		Print "WARNING! You are about to remove a huge portion of the file, if not the entire content"
+		If Left(Upper(Trim(Input("Are you sure ? (Y/N) "))),1)<>"Y" Return
+	EndIf
+	Local newdata:TList = New TList
+	Local keep
+	For Local i=0 Until CountList(data)
+		keep=True
+		DebugLog "LINE: "+i
+		For Local i2=EachIn l
+			keep = keep And i<>i2
+			DebugLog "CHECK: "+i2+" KEEP: "+Keep+"   ("+Int(i<>i2)+")"
+		Next
+		If keep ListAddLast newdata,data.valueatindex(i)
+	Next
+	data=newdata
+End Function	
+
 eddyadd "Q",Quit,"Saves and quits EDdy"
 eddyadd "BYE",quit,"Saves and quits EDdy"
 eddyadd "CRASH",Crash,"Quits EDdy immediately without saving"
 eddyadd "A",Add,"Adds a line of text to the end of the text"
 eddyadd "L",List,"Lists content"
 eddyadd "HELP",HELP,"List of commands And their purposes"
+eddyadd "D",del,"Deletes a line or multiple lines from the text"
 
 Print "EDdy - Coded by Tricky"
 Print "Version "+MKL_NewestVersion()
