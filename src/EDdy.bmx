@@ -160,6 +160,19 @@ Function Del(P$)
 	data=newdata
 End Function	
 
+Function Insert(P$)
+	p=Trim(p)
+	Local ps = p.find(" ")
+	Local l=(p[..ps]).toint()
+	Local t$=p[ps+1..]
+	Local newdata:TList = New TList
+	For Local i=0 Until CountList(data)
+		If i=l ListAddLast newdata,t
+		ListAddLast newdata,data.valueatindex(i)
+	Next
+	data=newdata
+End Function
+
 eddyadd "Q",Quit,"Saves and quits EDdy"
 eddyadd "BYE",quit,"Saves and quits EDdy"
 eddyadd "CRASH",Crash,"Quits EDdy immediately without saving"
@@ -167,6 +180,8 @@ eddyadd "A",Add,"Adds a line of text to the end of the text"
 eddyadd "L",List,"Lists content"
 eddyadd "HELP",HELP,"List of commands And their purposes"
 eddyadd "D",del,"Deletes a line or multiple lines from the text"
+eddyadd "I",insert,"Inserts a line"
+eddyadd "S",save,"Saves the file"
 
 Print "EDdy - Coded by Tricky"
 Print "Version "+MKL_NewestVersion()
