@@ -222,6 +222,8 @@ If Not FileType(file)
 		BT = WriteFile(file)
 		If Not bt Print "ERROR: Couldn't create the file!" End
 		CloseFile BT		
+	Else
+		end	
 	EndIf
 EndIf
 
