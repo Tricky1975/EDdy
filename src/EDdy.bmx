@@ -213,6 +213,8 @@ If (Len AppArgs)<=1
 	End
 EndIf
 
+ChangeDir Launchdir
+
 Global file$ = AppArgs[1]
 Global BT:TStream
 
@@ -223,7 +225,7 @@ If Not FileType(file)
 		If Not bt Print "ERROR: Couldn't create the file!" End
 		CloseFile BT		
 	Else
-		end	
+		End	
 	EndIf
 EndIf
 
