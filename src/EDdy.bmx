@@ -113,7 +113,7 @@ Function LineNumbers[](p$)
 					ret:+ak
 				Next
 			EndIf
-		ElseIf n=""
+		ElseIf n="" Or Upper(n)="ALL"
 			For ak=0 Until CountList(data)
 				If Ret ret:+","
 				ret:+ak
@@ -163,6 +163,7 @@ End Function
 Function Insert(P$)
 	p=Trim(p)
 	Local ps = p.find(" ")
+	If ps=-1 Print "ERROR: Invalid input!";Return
 	Local l=(p[..ps]).toint()
 	Local t$=p[ps+1..]
 	Local newdata:TList = New TList
@@ -171,6 +172,26 @@ Function Insert(P$)
 		ListAddLast newdata,data.valueatindex(i)
 	Next
 	data=newdata
+End Function
+
+Function ReplaceLine(p$)
+	p=Trim(p)
+	Local ps = p.find(" ")
+	If ps=-1 Print "ERROR: Invalid input!";Return
+	Local l[]=linenumbers(p[..ps])
+	Local newdata:TList = New TList
+	For Local i=0 Until CountList(data)
+		Local change
+		For Local i2=EachIn l
+			change = change Or i2=i
+		Next
+		If change
+			ListAddLast newdata,p[ps+1..]
+		Else
+			ListAddLast newdata,data.valueatindex(i)
+		EndIf	
+	Next
+	data=newdata	
 End Function
 
 eddyadd "Q",Quit,"Saves and quits EDdy"
@@ -182,6 +203,7 @@ eddyadd "HELP",HELP,"List of commands And their purposes"
 eddyadd "D",del,"Deletes a line or multiple lines from the text"
 eddyadd "I",insert,"Inserts a line"
 eddyadd "S",save,"Saves the file"
+eddyadd "REPLINE",ReplaceLine,"Replaces a line"
 
 Print "EDdy - Coded by Tricky"
 Print "Version "+MKL_NewestVersion()
