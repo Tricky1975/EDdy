@@ -194,6 +194,17 @@ Function ReplaceLine(p$)
 	data=newdata	
 End Function
 
+Function Search(p$)
+	Local l$ = ""
+	For Local i=0 Until CountList(data)
+		If String(data.valueatindex(i)).find(p)>-1
+			If l l:+","
+			l:+i
+		EndIf
+	Next
+	list(l)
+End Function
+
 eddyadd "Q",Quit,"Saves and quits EDdy"
 eddyadd "BYE",quit,"Saves and quits EDdy"
 eddyadd "CRASH",Crash,"Quits EDdy immediately without saving"
@@ -203,7 +214,8 @@ eddyadd "HELP",HELP,"List of commands And their purposes"
 eddyadd "D",del,"Deletes a line or multiple lines from the text"
 eddyadd "I",insert,"Inserts a line"
 eddyadd "S",save,"Saves the file"
-eddyadd "REPLINE",ReplaceLine,"Replaces a line"
+eddyadd "REPLINE",ReplaceLine,"Replaces a line or multiple lines with new text"
+eddyadd "SEARCH",Search,"Seaches for text (case sensitive)"
 
 Print "EDdy - Coded by Tricky"
 Print "Version "+MKL_NewestVersion()
@@ -213,7 +225,7 @@ If (Len AppArgs)<=1
 	End
 EndIf
 
-ChangeDir Launchdir
+ChangeDir LaunchDir
 
 Global file$ = AppArgs[1]
 Global BT:TStream
